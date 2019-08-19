@@ -1,6 +1,6 @@
 {
   "name": "@elasticms/hashcash",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This package will computed an hascash as expected by the elasticms skeleton",
   "main": "index.js",
   "scripts": {
