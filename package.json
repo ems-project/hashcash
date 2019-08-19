@@ -1,0 +1,24 @@
+{
+  "name": "@elasticms/hashcash",
+  "version": "1.0.0",
+  "description": "This package will computed an hascash as expected by the elasticms skeleton",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ems-project/hashcash.git"
+  },
+  "keywords": [
+    "elasticms",
+    "skeleton",
+    "hashcash"
+  ],
+  "author": "Mathieu De Keyzer <mathieu@dekeyzer.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ems-project/hashcash/issues"
+  },
+  "homepage": "https://github.com/ems-project/hashcash#readme"
+}
