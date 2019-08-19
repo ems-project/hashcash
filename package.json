@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/ems-project/hashcash/issues"
   },
+  "devDependencies": {
+    "hashcash-token": "^1.0.0",
+    "moment": "^2.24.0"
+  },
   "homepage": "https://github.com/ems-project/hashcash#readme"
 }
