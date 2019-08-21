@@ -78,7 +78,7 @@ export default function hashcash(onSubmitCallback, onSuccessCallback, onErrorCal
 
             req.addEventListener("progress", function(evt) {
                 if (onProgressCallback) {
-                    onProgressCallback(evt);
+                    onProgressCallback(e.target, evt);
                 }
                 else {
                     console.log("progress");
@@ -90,7 +90,7 @@ export default function hashcash(onSubmitCallback, onSuccessCallback, onErrorCal
 
                     if ( jsonResponse.ouuid && jsonResponse.success ) {
                         if (onSuccessCallback) {
-                            onSuccessCallback(jsonResponse.ouuid);
+                            onSuccessCallback(e.target, jsonResponse.ouuid);
                         }
                         else {
                             console.log('Your submit id: '+jsonResponse.ouuid);
@@ -104,7 +104,7 @@ export default function hashcash(onSubmitCallback, onSuccessCallback, onErrorCal
                     }
                 } catch(e) {
                     if (onErrorCallback) {
-                        onErrorCallback(e.toString());
+                        onErrorCallback(e.target, e.toString());
                     }
                     else {
                         console.log(e.toString());
@@ -114,7 +114,7 @@ export default function hashcash(onSubmitCallback, onSuccessCallback, onErrorCal
             }, false);
             req.addEventListener("error", function(evt) {
                 if (onErrorCallback) {
-                    onErrorCallback(evt.toString());
+                    onErrorCallback(e.target, evt.toString());
                 }
                 else {
                     console.log(evt.toString());
