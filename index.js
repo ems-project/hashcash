@@ -1,8 +1,7 @@
 import CryptoJS from 'crypto-js';
 
 
-export default function hashcash() {
-    const DELIMITER = "|";
+export default function hashcash(onSuccessCallback, onErrorCallback = null, onProgressCallback = null, DELIMITER = "|") {
 
     function toJSONString( form )
     {
@@ -30,6 +29,7 @@ export default function hashcash() {
         if(hashcash_value) {
             return hashcash_value;
         }
+
         let random, value, hash, counter = 0;
         const regex = new RegExp("^0{"+noun+"}");
         const t0 = performance.now();
@@ -62,22 +62,55 @@ export default function hashcash() {
             const req = new XMLHttpRequest();
 
             req.open('POST', e.target.getAttribute('action'), true);
-            req.setRequestHeader('Content-type', 'application/json');
-            req.overrideMimeType("application/json");
             req.setRequestHeader('X-Hashcash', hashcash_value);
 
             req.addEventListener("progress", function(evt) {
-                console.log('progress');
+                if (onProgressCallback) {
+                    onProgressCallback(evt);
+                }
+                else {
+                    console.log("progress");
+                }
             }, false);
             req.addEventListener("load", function(evt) {
-                const jsonResponse = JSON.parse(req.responseText);
-                alert('Your submit id: '+jsonResponse.submit_id);
+                try {
+                    const jsonResponse = JSON.parse(req.responseText);
+
+                    if ( jsonResponse.ouuid && jsonResponse.success ) {
+                        if (onSuccessCallback) {
+                            onSuccessCallback(jsonResponse.ouuid);
+                        }
+                        else {
+                            console.log('Your submit id: '+jsonResponse.ouuid);
+                        }
+                    }
+                    else if ( jsonResponse.message ) {
+                        throw jsonResponse.message;
+                    }
+                    else {
+                        throw evt.toString();
+                    }
+                } catch(e) {
+                    if (onErrorCallback) {
+                        onErrorCallback(e.toString());
+                    }
+                    else {
+                        console.log(e.toString());
+                    }
+                }
+
             }, false);
             req.addEventListener("error", function(evt) {
-                alert('error');
+                if (onErrorCallback) {
+                    onErrorCallback(evt.toString());
+                }
+                else {
+                    console.log(evt.toString());
+                }
             }, false);
 
-            req.send(toJSONString(e.target));
+            const formData = new FormData(e.target);
+            req.send(formData);
 
         }, false);
     }
