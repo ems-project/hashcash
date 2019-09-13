@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js';
 
 
-export default function hashcash(onSubmitCallback, onSuccessCallback, onErrorCallback, onProgressCallback, DELIMITER) {
+export default function hashcash(target, onSubmitCallback, onSuccessCallback, onErrorCallback, onProgressCallback, DELIMITER) {
 
     function toJSONString( form )
     {
@@ -53,7 +53,7 @@ export default function hashcash(onSubmitCallback, onSuccessCallback, onErrorCal
     }
 
     console.log('Hashcash is initializing forms');
-    const forms = document.querySelectorAll('form[data-hashcash]');
+    const forms = target.querySelectorAll('form[data-hashcash]');
     for (const form of forms) {
 
         let hashcash_value = null;
